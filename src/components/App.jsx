@@ -6,17 +6,18 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 
 export function App() {
-  const [contacts, setContacts] = useState([]);
-  const [filter, setFilter] = useState('');
-
-  useEffect(() => {
+  const loadingContacts = () => {
     const localStorageContacts = localStorage.getItem('contacts');
     const parsedContacts = JSON.parse(localStorageContacts);
 
     if (parsedContacts) {
-      setContacts(parsedContacts);
+      return parsedContacts;
     }
-  }, []);
+    return [];
+  };
+
+  const [contacts, setContacts] = useState(loadingContacts());
+  const [filter, setFilter] = useState('');
 
   useEffect(() => {
     localStorage.setItem('contacts', JSON.stringify(contacts));
