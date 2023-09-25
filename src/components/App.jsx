@@ -10,8 +10,8 @@ export function App() {
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
-    const contacts = localStorage.getItem('contacts');
-    const parsedContacts = JSON.parse(contacts);
+    const localStorageContacts = localStorage.getItem('contacts');
+    const parsedContacts = JSON.parse(localStorageContacts);
 
     if (parsedContacts) {
       setContacts(parsedContacts);
@@ -35,7 +35,7 @@ export function App() {
       alert(`${body.name} is already in contacts.`);
       return;
     } else {
-      setContacts(newContact);
+      setContacts(prev => [...prev, newContact]);
     }
   }
 
