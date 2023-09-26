@@ -5,18 +5,12 @@ import Filter from './Filter/Filter';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
+const loadingContacts = () => {
+  return JSON.parse(localStorage.getItem('contacts')) || [];
+};
+
 export function App() {
-  const loadingContacts = () => {
-    const localStorageContacts = localStorage.getItem('contacts');
-    const parsedContacts = JSON.parse(localStorageContacts);
-
-    if (parsedContacts) {
-      return parsedContacts;
-    }
-    return [];
-  };
-
-  const [contacts, setContacts] = useState(loadingContacts());
+  const [contacts, setContacts] = useState(loadingContacts);
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
